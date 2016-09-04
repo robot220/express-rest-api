@@ -1,0 +1,15 @@
+{
+  "database" : {
+    "connectionString": "mongodb://localhost/express-simple-api"
+  },
+  "server": {
+    "port": "3001"
+  },
+  "token": {
+    "secret": "NmzXaVUWpAaZLnq4lpsy_HlV6GqW2leOkOqyrvYku-U",
+    "expiresIn": 86400
+  },
+  "security": {
+    "passwordSaltLength": 20
+  }
+}

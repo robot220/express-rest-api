@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body ng-controller="MyCtrl">
+
+{{ testValue }}
+<div ng-include="url"></div>
+<button ng-click="switchTemplate(1)"> To one </button><br/>
+<button ng-click="switchTemplate(2)"> To two </button><br/>
+<button ng-click="sendReq1()"> Send req #1</button><br/>
+<button ng-click="sendReq2()"> Send req #2</button><br/>
+
+<!-- Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+
+<script>
+    var app = angular.module('app', []);
+    app.controller('MyCtrl', MyCtrl);
+
+    function MyCtrl($scope, $http){
+
+        $scope.testValue = 100;
+        $scope.switchTemplate = function(id){
+            $scope.url = "../views/" + id + ".html";
+        }
+        $scope.url = "../views/1.html";
+        $scope.sendReq1 = function(){
+            $http({
+                method: 'post',
+                url: 'http://192.168.0.103:3001/authenticate',
+                data: { "name": "Bob", "password": "pass1234", "token": "" }
+            }).then(function(response){
+                console.log(response);
+            });
+        };
+
+        $scope.sendReq2 = function(){
+            $http({
+                method: 'post',
+                url: 'http://192.168.0.103:3001/api/todos',
+                headers: { "Authorization": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImFkbWluIjoiaW5pdCIsInBhc3N3b3JkIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiYWRtaW4iOnRydWUsInBhc3N3b3JkIjp0cnVlLCJuYW1lIjp0cnVlLCJfaWQiOnRydWV9LCJtb2RpZnkiOnt9LCJyZXF1aXJlIjp7fX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MCwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiYWRtaW4iOnRydWUsInBhc3N3b3JkIjoicGFzczEyMzQiLCJuYW1lIjoiQm9iIiwiX2lkIjoiNTdjOWUxMjRkODBmN2JkM2U5NDc5MGE4In0sIl9wcmVzIjp7IiRfX29yaWdpbmFsX3NhdmUiOltudWxsLG51bGxdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W251bGxdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltudWxsXX0sIl9wb3N0cyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltdfSwiaWF0IjoxNDcyOTAxNTM5LCJleHAiOjE0NzI5ODc5Mzl9.osIjtLwLHZ-jmYUQeqY7L8t-WnlcKaAZHwzp0ahe1cM' }
+                //data: { "token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImFkbWluIjoiaW5pdCIsInBhc3N3b3JkIjoiaW5pdCIsIm5hbWUiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiYWRtaW4iOnRydWUsInBhc3N3b3JkIjp0cnVlLCJuYW1lIjp0cnVlLCJfaWQiOnRydWV9LCJtb2RpZnkiOnt9LCJyZXF1aXJlIjp7fX0sInN0YXRlTmFtZXMiOlsicmVxdWlyZSIsIm1vZGlmeSIsImluaXQiLCJkZWZhdWx0IiwiaWdub3JlIl19LCJlbWl0dGVyIjp7ImRvbWFpbiI6bnVsbCwiX2V2ZW50cyI6e30sIl9ldmVudHNDb3VudCI6MCwiX21heExpc3RlbmVycyI6MH19LCJpc05ldyI6ZmFsc2UsIl9kb2MiOnsiYWRtaW4iOnRydWUsInBhc3N3b3JkIjoicGFzczEyMzQiLCJuYW1lIjoiQm9iIiwiX2lkIjoiNTdjOWUxMjRkODBmN2JkM2U5NDc5MGE4In0sIl9wcmVzIjp7IiRfX29yaWdpbmFsX3NhdmUiOltudWxsLG51bGxdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W251bGxdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltudWxsXX0sIl9wb3N0cyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltdLCIkX19vcmlnaW5hbF9yZW1vdmUiOltdfSwiaWF0IjoxNDcyOTAxNTM5LCJleHAiOjE0NzI5ODc5Mzl9.osIjtLwLHZ-jmYUQeqY7L8t-WnlcKaAZHwzp0ahe1cM' }
+            }).then(function(response){
+                console.log(response);
+            });
+        };
+
+    }
+
+    MyCtrl.$inject = [
+        "$scope",
+        "$http"
+    ];
+
+</script>
+</body>
+</html>

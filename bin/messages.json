@@ -1,0 +1,8 @@
+{
+  "token": {
+    "USER_NOT_FOUND": "Authentication failed. User not found.",
+    "WRONG_PASSWORD": "Authentication failed. Wrong password.",
+    "NO_TOKEN_PROVIDED": "No token provided.",
+    "TOKEN_VERIFICATION_FAILED": "Failed to authenticate token."
+  }
+}
