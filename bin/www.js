@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('todo-api:server');
 var http = require('http');
-var appConfig = require("../config/app.json"),
+var appConfig = require("../config.json"),
     serverConfig = appConfig.server;
 
 /**
@@ -90,5 +90,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-const MSG = require("./messages.json");

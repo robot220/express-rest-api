@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var todos = require('./routes/todos');
+var guest = require('./routes/guest');
 
 // =================================================================
 // configuration ===================================================

@@ -1,17 +1,17 @@
 const crypto = require('crypto');
-const appCfg = require('./config.json');
+const appCfg = require('../config.json');
 
 var SaltLength = appCfg.security.passwordSaltLength;
 
-function createHash(password) {
+function createHash(value) {
     var salt = generateSalt(SaltLength);
-    var hash = md5(password + salt);
+    var hash = md5(value + salt);
     return salt + hash;
 }
 
-function validateHash(hash, password) {
+function validateHash(hash, value) {
     var salt = hash.substr(0, SaltLength);
-    var validHash = salt + md5(password + salt);
+    var validHash = salt + md5(value + salt);
     return hash === validHash;
 }
 
