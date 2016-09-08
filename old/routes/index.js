@@ -9,6 +9,14 @@ router.get('/', (req, res, next) => {
   res.render('index', { title: 'ngTodo' });
 });
 
+router.get('/random', (req, res, next) => {
+    res.json(Math.random() * 100);
+});
+
+router.get('/test', (req, res, next) =>{
+    res.render('test', {name: "Bob", age: 20});
+});
+
 // ---------------------------------------------------------
 // authenticate user and generate a new token
 // ---------------------------------------------------------

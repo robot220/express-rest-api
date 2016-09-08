@@ -1,2 +1,4 @@
 node_modules/
 .idea/
+new/node_modules
+old/node_modules
