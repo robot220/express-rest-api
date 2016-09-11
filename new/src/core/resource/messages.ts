@@ -1,5 +1,7 @@
-//export default class Messages
+/// <reference path="../utils/a.ts" />
+/// <reference path="../utils/b.ts" />
 
-export module Messages {
+import * as test from './ns';
 
-}
+let t1 = new Utils.A();
+let t2 = new Utils.B();
