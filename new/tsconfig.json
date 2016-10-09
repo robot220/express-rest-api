@@ -9,7 +9,8 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "listFiles": false
+        "listFiles": false,
+        "lib": ["es6"]
     },
     "exclude": [
         "node_modules"
