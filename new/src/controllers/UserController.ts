@@ -17,8 +17,8 @@ export class UserController {
     }
 
     @Get("/")
-    getAll(@Req() request: Request, @Res() response: Response){
-        this._userRepository
+    async getAll(@Req() request: Request, @Res() response: Response){
+        await this._userRepository
             .getAll()
             .then((users) => {
                 response.status(200).json(users);
@@ -26,8 +26,8 @@ export class UserController {
     }
 
     @Post("/")
-    create(@Body() user: User, @Req() request: Request, @Res() response: Response){
-        this._userRepository
+    async create(@Body() user: User, @Req() request: Request, @Res() response: Response){
+        await this._userRepository
             .create(user)
             .then((result) => {
                 response.status(200).json(result);
@@ -35,9 +35,9 @@ export class UserController {
     }
 
     @Put("/:id")
-    update(@Param("id") id: number, @Body() user: User, @Req() request: Request, @Res() response: Response){
+    async update(@Param("id") id: number, @Body() user: User, @Req() request: Request, @Res() response: Response){
         if (!id) { return new HttpError(403, "Id parameter is not defined.") }
-        this._userRepository
+        await this._userRepository
             .update(id)
             .then((result) => {
                 response.status(200).json(result);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-import {User} from "../entities/User";
 
-const UserSchema = new mongoose.Schema(new User());
+const UserSchema = new mongoose.Schema({
+    "name": String
+});
 module.exports = mongoose.model('User', UserSchema);

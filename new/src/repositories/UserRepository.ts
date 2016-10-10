@@ -1,5 +1,7 @@
-const UserScheme = require("../models/User");
 import {User} from "../entities/User";
+import es6PromiseLib = require('es6-promise');
+const Promise = es6PromiseLib.Promise;
+const UserScheme = require("../models/User");
 
 export class UserRepository {
 
