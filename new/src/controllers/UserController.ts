@@ -20,7 +20,8 @@ export class UserController {
     async getAll(@Req() request: Request, @Res() response: Response){
         await this._userRepository
             .getAll()
-            .then((users) => {
+            .then((result) => {
+                var users = result.map((u) => new User(u.name));
                 response.status(200).json(users);
             });
     }
