@@ -13,7 +13,9 @@ import * as path from "path";
 // app.use() // maybe you configure it the way you want
 
 
-const app = require("./config/express").default();
+//const app = require("./config/express").default();
+import { Application } from "./config/express";
+const app = Application.init();
 const controllerDir = path.join(__dirname, "/controllers/");
 useExpressServer(app, {
     controllers: [controllerDir + "*.ts"]

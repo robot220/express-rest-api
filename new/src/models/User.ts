@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-
-const UserSchema = new mongoose.Schema({
-    "name": String
-});
-module.exports = mongoose.model('User', UserSchema);
+export class User {
+    name: string;
+    constructor(_name: string){
+        this.name = _name;
+    }
+}

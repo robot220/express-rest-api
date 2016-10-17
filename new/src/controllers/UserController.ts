@@ -4,7 +4,7 @@ import {Body, Req, Res, Param} from "routing-controllers";
 import {Get, Post, Put} from "routing-controllers";
 //let User = require("../models/User");
 import {UserRepository} from "../repositories/UserRepository";
-import {User} from "../entities/User";
+import {User} from "../models/User";
 import {HttpError} from "routing-controllers/error/http/HttpError";
 import {UserService} from "../services/UserService";
 

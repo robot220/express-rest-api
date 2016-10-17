@@ -8,6 +8,22 @@ import * as path from "path";
 import { MongooseDB } from "../database/mongoDB/Initializer";
 import { ExpressHelper } from "../helpers/ExpressHelper";
 
+export class Application {
+
+    public static init() {
+        var app = express();
+
+        // Bind middlewares.
+        ExpressHelper.bindApplicationMiddlewares(app);
+
+        // Connect to database.
+        let db : MongooseDB = new MongooseDB('mongodb://localhost:27017/express-simple-api');
+
+        return app;
+    }
+
+}
+
 export default function() {
     var app = express();
     
