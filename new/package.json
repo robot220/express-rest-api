@@ -31,12 +31,13 @@
     "typescript": "^1.8.9"
   },
   "devDependencies": {
+    "compression": "^1.6.2",
     "es6-shim": "^0.35.1",
     "linqts": "^1.6.0",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "reflect-metadata": "^0.1.8",
-    "routing-controllers": "^0.6.5",
+    "routing-controllers": "^0.6.6",
     "ts-node": "^0.7.3"
   }
 }

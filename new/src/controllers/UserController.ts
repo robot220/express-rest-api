@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {JsonController, QueryParam, UseBefore} from "routing-controllers";
+import {JsonController, QueryParam, UseInterceptor, Controller, UseBefore, UseAfter} from "routing-controllers";
 import {Body, Req, Res, Param} from "routing-controllers";
 import {Get, Post, Put} from "routing-controllers";
 //let User = require("../models/User");
@@ -8,7 +8,7 @@ import {User} from "../models/User";
 import {HttpError} from "routing-controllers/error/http/HttpError";
 import {UserService} from "../services/UserService";
 
-@JsonController("/users")
+@Controller("/users")
 export class UserController {
 
     private _userRepository: UserRepository;
@@ -21,20 +21,18 @@ export class UserController {
 
     @Get("/")
     async getAll(@Req() request: Request, @Res() response: Response){
-        await this._userRepository
-            .getAll()
-            .then((result) => {
-                var users = result.map((u) => new User(u.name));
-                response.status(200).json(users);
+        await this._userService.getUsers().then((users) => {
+                response.json(users);
             });
     }
 
     @Post("/")
-    async create(@Body() user: User, @Req() request: Request, @Res() response: Response){
-        await this._userRepository
-            .create(user)
-            .then((result) => {
-                response.status(200).json(result);
+    //async create(@Body({required: true}) user: User, @Req() request: Request, @Res() response: Response){
+    async create(@Req() request: Request, @Res() response: Response){
+        await this._userService.create(request.body).then((result) => {
+                //response.statusCode = result.status;
+                //console.log(`Status: ${response.statusCode}`);
+                response.json(result);
             });
     }
 
@@ -50,12 +48,23 @@ export class UserController {
 
     @Get("/test")
     async sortBy(@QueryParam("sort") sortDirection: number, @Req() request: Request, @Res() response: Response) {
+        let direction: number = sortDirection == 1 ? -1 : 1;
+        let result = await this._userService
+            .test({name: direction})
+            .exec((err, data) => {
+                let users = data.map((u) => new User(u['name'], u['age']));
+                response.json(users);
+            });
+    }
+
+    /*@Get("/test")
+    async sortBy(@QueryParam("sort") sortDirection: number, @Req() request: Request, @Res() response: Response) {
         await this._userService
             .sortBy(sortDirection)
             .then((result) => {
                 response.json(result);
             });
-    }
+    }*/
 
     /*@Get("/")
     @Header("Test", "20")

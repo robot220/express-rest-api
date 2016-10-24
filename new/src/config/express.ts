@@ -8,6 +8,9 @@ import * as path from "path";
 import { MongooseDB } from "../database/mongoDB/Initializer";
 import { ExpressHelper } from "../helpers/ExpressHelper";
 
+import {Request, Response} from "express";
+import {HttpError} from "routing-controllers/error/http/HttpError";
+
 export class Application {
 
     public static init() {
@@ -19,116 +22,58 @@ export class Application {
         // Connect to database.
         let db : MongooseDB = new MongooseDB('mongodb://localhost:27017/express-simple-api');
 
+        /*app.use((request: Request, res: Response, next) => {
+            console.log(res.statusCode);
+            next({"message": "Not found."});
+        });
+
+        app.use(function (err, request: Request, res: Response, next: Function) {
+            res.send(`${err.message}`);
+            next();
+        });*/
+
+        // catch 404 and forward to error handler
+        /*app.use(function(request: Request, res: Response, next: Function) {
+            var err = new HttpError(404, 'Not Found');
+            next(err);
+        });
+        if (app.get('env') === 'development') {
+            app.use(function(err, request: Request, res: Response, next: Function) {
+                res.status(err.httpCode || err.status || 500);
+                res.send({
+                    message: err.message,
+                    error: err
+                });
+            });
+        }*/
+
+
+        //app.use(express.static(path.join(__dirname, "../public")));
+
+        /*
+         app.use((req: express.Request, res: express.Response, next: Function): void => {
+         let err: Error = new Error("Not Found");
+         next(err);
+         });
+         */
+
+        /*if (app.get("env") === "development") {
+         app.use((err: Error, req: express.Request, res: express.Response, next): void => {
+         res.status(500).render("error", {
+         message: err.message,
+         error: err
+         });
+         });
+         }
+
+         app.use((err: any, req: express.Request, res: express.Response, next): void => {
+         res.status(err.status || 500).render("error", {
+         message: err.message,
+         error: {}
+         });
+         });*/
+
         return app;
     }
 
 }
-
-export default function() {
-    var app = express();
-    
-    // Bind middlewares.
-    ExpressHelper.bindApplicationMiddlewares(app);
-    
-    /*let db : MongooseDB = new MongooseDB();
-    db.connect();*/
-    let db : MongooseDB = new MongooseDB('mongodb://localhost:27017/express-simple-api');
-    
-    //app.set("views", path.join(__dirname, "../views"));
-    /*app.set("view engine", "jade");    
-    app.use(logger("dev"));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cookieParser());*/
-    //app.use(express.static(path.join(__dirname, "../public")));
-
-    /*
-    app.use((req: express.Request, res: express.Response, next: Function): void => {
-        let err: Error = new Error("Not Found");
-        next(err);
-    });
-     */    
-
-    /*if (app.get("env") === "development") {
-        app.use((err: Error, req: express.Request, res: express.Response, next): void => {
-            res.status(500).render("error", {
-                message: err.message,
-                error: err
-            });
-        });
-    }
-    
-    app.use((err: any, req: express.Request, res: express.Response, next): void => {
-        res.status(err.status || 500).render("error", {
-            message: err.message,
-            error: {}
-        });
-    });*/
-
-    return app;
-};
-
-/*
-export default function() {
-    var app = express();
-
-    // ---------------------------------------------------------
-    // initialize db-connection
-    // ---------------------------------------------------------
-    let db : MongooseDB = new MongooseDB();
-    db.connect();
-
-    // ---------------------------------------------------------
-    // models to work with db
-    // ---------------------------------------------------------    
-    for (let model of config.globFiles(config.models)) {
-        require(path.resolve(model));
-    }
-
-    // ---------------------------------------------------------
-    // view engine setup
-    // ---------------------------------------------------------
-    app.set("views", path.join(__dirname, "../views"));
-    app.set("view engine", "jade");
-
-    //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
-    app.use(logger("dev"));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cookieParser());
-    app.use(express.static(path.join(__dirname, "../public")));
-
-    // ---------------------------------------------------------
-    // load application routes
-    // ---------------------------------------------------------
-    /!*for (let route of config.globFiles(config.routes)) {
-     require(path.resolve(route)).default(app);
-     }*!/
-
-    // ---------------------------------------------------------
-    // error handlers
-    // ---------------------------------------------------------
-    app.use((req: express.Request, res: express.Response, next: Function): void => {
-        let err: Error = new Error("Not Found");
-        next(err);
-    });
-
-    if (app.get("env") === "development") {
-        app.use((err: Error, req: express.Request, res: express.Response, next): void => {
-            res.status(500).render("error", {
-                message: err.message,
-                error: err
-            });
-        });
-    }
-
-    // production error handler
-    app.use((err: any, req: express.Request, res: express.Response, next): void => {
-        res.status(err.status || 500).render("error", {
-            message: err.message,
-            error: {}
-        });
-    });
-
-    return app;
-};*/

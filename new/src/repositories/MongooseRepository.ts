@@ -21,11 +21,15 @@ export abstract class MongooseRepository<T> implements IRepository {
     create(entity:T) {
         return new Promise<any>((resolve, reject) => {
             this._db.create(entity, (err) => {
-                if(err){ reject(err); }
-                //resolve(`User with name '${body.name}' was created.`);
-                resolve(true);
+                //if(err){ reject(err.message); }
+                //resolve(true);
+                resolve(err);
             })
         });
+    }
+
+    sort() {
+        return this._db.find({});
     }
 
 }

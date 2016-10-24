@@ -1,6 +1,8 @@
 import { List } from "linqts/linq";
 import { UserRepository } from "../repositories/UserRepository";
 import { Direction } from "../enums/Direction";
+import {User} from "../models/User";
+import {ResponseModel} from "../models/response/ResponseModel";
 
 export class UserService {
 
@@ -10,8 +12,25 @@ export class UserService {
         this._userRepository = new UserRepository();
     }
     
-    getUsers() {
+    getUsers(): Promise<any> {
         return this._userRepository.getAll();
+    }
+    
+    /*create(user: User): Promise<boolean> {
+        return this._userRepository.create(user);
+    }*/
+
+    create(user: User): Promise<any> {
+        return this._userRepository.create(user).then((err) => {
+            let result = new ResponseModel();
+            if (err) {
+                result.errors = err.errors;
+                result.success = false;
+            }
+            return new Promise<any>((resolve) => {
+                resolve(result);
+            });
+        });
     }
     
     paginate(query?: string, from?: number, to?:number): void{
@@ -21,7 +40,7 @@ export class UserService {
             });
     }
 
-    sortBy(direction:Direction){
+    /*sortBy(direction:Direction){
         if (direction == Direction.Desc) {
             return this.getUsers()
                 .then((users) => {
@@ -32,6 +51,10 @@ export class UserService {
         } else {
             return this.getUsers();
         }
+    }*/
+    
+    test(sortConfig: any){
+        return this._userRepository.sort().sort(sortConfig);
     }
 
 }

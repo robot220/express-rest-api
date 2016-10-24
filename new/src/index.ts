@@ -7,19 +7,37 @@ import {useExpressServer} from "routing-controllers";
 import * as path from "path";
 //import "./controllers/UserController.ts";
 
+import { Request, Response} from "express";
+import {ResponseModel} from "./models/response/ResponseModel";
 
 //let express = require("express"); // or you can import it if you have installed typings
 //let app = express(); // your created express server
 // app.use() // maybe you configure it the way you want
 
-
 //const app = require("./config/express").default();
 import { Application } from "./config/express";
 const app = Application.init();
 const controllerDir = path.join(__dirname, "/controllers/");
+
 useExpressServer(app, {
-    controllers: [controllerDir + "*.ts"]
+    controllers: [
+        controllerDir + "*.ts",
+        //path.join(__dirname, "/controllers/main/MainController.ts")
+    ],
+    middlewares: [
+        path.join(__dirname, "/middlewares/NotFound.ts"),
+        path.join(__dirname, "/middlewares/ErrorHandler.ts"),
+        //path.join(__dirname, "/middlewares/main/MainController.ts")
+    ]
+
 }).listen(3002);
+
+/*app.use((request: Request, response: Response, next: any) => {
+    let notFound = new ResponseModel(404, false, null, null, "Not found 404.");
+    response.send(notFound);
+    next();
+});*/
+
 console.log("Server is running on port: ", 3002);
 
 
