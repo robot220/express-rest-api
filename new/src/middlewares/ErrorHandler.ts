@@ -4,8 +4,11 @@ import {ErrorMiddlewareInterface, MiddlewareGlobalAfter, MiddlewareInterface, Mi
 export class ErrorHandler implements MiddlewareInterface {
 
     error(error: any, request: any, response: any, next: (err?: any) => any): void {
-        response.status(500).send(`Internal Server Error.`);
-        next();
+        console.log("***");
+        console.log(error.status);
+        console.log(error.message);
+        console.log("***");
+        next(error.message);
     }
 
 }

@@ -11,7 +11,7 @@ export class NotFoundMiddleware {
     use(request: Request, response: Response, next?: (err?: any) => any): any {
         if (response.statusMessage == undefined) {
             let notFound = new NotFoundResponse();
-            response.status(404).send(notFound).end();
+            response.status(200).send(notFound).end();
         }
     }
 

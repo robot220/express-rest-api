@@ -79,4 +79,9 @@ export class UserController {
         return users;
     }*/
 
+    @Get("/t")
+    test1(@Req() request: Request, @Res() response: Response, next: any){
+        throw new HttpError(400, "Incorrect email or password!");
+    }
+
 }
