@@ -1,7 +1,6 @@
 import {ErrorMiddlewareInterface, MiddlewareGlobalAfter, MiddlewareInterface, Middleware} from "routing-controllers";
 import {Request, Response} from "express";
-import {NotFoundResponse} from "../models/response/NotFound";
-import {ResponseModel} from "../models/response/ResponseModel";
+import {NotFoundResponse} from "../models/response/NotFoundResponse";
 
 const fs = require("fs");
 

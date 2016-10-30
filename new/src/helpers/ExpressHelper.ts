@@ -3,7 +3,6 @@ import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
 import {Request, Response} from "express";
 import {HttpError} from "routing-controllers/error/http/HttpError";
-import {ResponseModel} from "../models/response/ResponseModel";
 const compression = require("compression");
 
 export class ExpressHelper {

@@ -8,7 +8,6 @@ import * as path from "path";
 //import "./controllers/UserController.ts";
 
 import { Request, Response} from "express";
-import {ResponseModel} from "./models/response/ResponseModel";
 
 //let express = require("express"); // or you can import it if you have installed typings
 //let app = express(); // your created express server
@@ -28,7 +27,8 @@ useExpressServer(app, {
         path.join(__dirname, "/middlewares/NotFound.ts"),
         path.join(__dirname, "/middlewares/ErrorHandler.ts"),
         //path.join(__dirname, "/middlewares/main/MainController.ts")
-    ]
+    ],
+    defaultErrorHandler: false
 
 }).listen(3002);
 

@@ -18,6 +18,12 @@ export abstract class MongooseRepository<T> implements IRepository {
         });
     }
 
+    /*async getAll2() {
+        return await this._db.find({}, (err, response) => {
+            await response;
+        })
+    }*/
+
     create(entity:T) {
         return new Promise<any>((resolve, reject) => {
             this._db.create(entity, (err) => {

@@ -7,6 +7,7 @@ import {UserRepository} from "../repositories/UserRepository";
 import {User} from "../models/User";
 import {HttpError} from "routing-controllers/error/http/HttpError";
 import {UserService} from "../services/UserService";
+import {SuccessResponse} from "../models/response/SuccessResponse";
 
 @Controller("/users")
 export class UserController {
@@ -22,7 +23,8 @@ export class UserController {
     @Get("/")
     async getAll(@Req() request: Request, @Res() response: Response){
         await this._userService.getUsers().then((users) => {
-                response.json(users);
+                let result = new SuccessResponse(users);
+                response.json(result);
             });
     }
 

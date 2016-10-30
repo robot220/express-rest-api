@@ -2,7 +2,10 @@ import { List } from "linqts/linq";
 import { UserRepository } from "../repositories/UserRepository";
 import { Direction } from "../enums/Direction";
 import {User} from "../models/User";
-import {ResponseModel} from "../models/response/ResponseModel";
+import {async} from "q";
+import {SuccessResponse} from "../models/response/SuccessResponse";
+import {ErrorResponse} from "../models/response/ErrorResponse";
+import {BaseResponse} from "../models/response/BaseResponse";
 
 export class UserService {
 
@@ -22,10 +25,11 @@ export class UserService {
 
     create(user: User): Promise<any> {
         return this._userRepository.create(user).then((err) => {
-            let result = new ResponseModel();
+            let result: BaseResponse;
             if (err) {
-                result.errors = err.errors;
-                result.success = false;
+                result = new ErrorResponse(400, err.errors);
+            } else {
+                result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
             }
             return new Promise<any>((resolve) => {
                 resolve(result);
@@ -56,6 +60,10 @@ export class UserService {
     test(sortConfig: any){
         return this._userRepository.sort().sort(sortConfig);
     }
+
+    /*async test2(){
+        return await this._userRepository.getAll2();
+    }*/
 
 }
 
